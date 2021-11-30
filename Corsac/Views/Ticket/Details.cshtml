@@ -1,0 +1,35 @@
+﻿@model TicketWithStatusAndMessagesDto
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Ticket";
+    ApplicationUser appUser = await UserManager.GetUserAsync(User);
+}
+
+<div class="container my-2 p-2">
+    <h4>Ticket UId: @Model.TicketUID</h4>
+    <h4>Status: @Model.Status</h4>
+    <h4>Assigned To: @Model.UserName</h4>
+    @foreach (var message in Model.TicketMessages)
+    {
+        @if (message.UserType == "Guest")
+        {
+            <p>Guest: @message.Message</p>
+        }
+        else
+        {
+            <p>Admin: @message.Message</p>
+        }
+    }
+
+    <form class="form-signin" asp-controller="Ticket" asp-action="Details" method="post">
+        <h1 class="h3 mb-3 font-weight-normal">Send new response</h1>
+        @if(appUser != null)
+        {
+            <input type="hidden" asp-for="UserId" value="@appUser.Id"/>
+        }
+        <label asp-for="Message" class="sr-only mt-2">Message</label>
+        <textarea type="text" asp-for="Message" placeholder="Message" class="form-control mb-2" rows="5" required></textarea>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,20 @@
+﻿@model TicketEditDto
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Edit";
+    ApplicationUser appUser = await UserManager.GetUserAsync(User);
+}
+
+<div class="container my-2 p-2">
+    <h4>Ticket UId: @Model.TicketUID</h4>
+    <form class="form-signin" asp-controller="Ticket" asp-action="Edit" method="post">
+        <h1 class="h3 mb-3 font-weight-normal">Edit Ticket</h1>
+
+        <label asp-for="UserId" class="sr-only mt-2">User</label>
+        <select asp-for="UserId" class="form-control select2" asp-items="ViewBag.user"></select>
+        <label asp-for="StatusId" class="sr-only mt-2">Status</label>
+        <select asp-for="StatusId" class="form-control select2 my-2" asp-items="ViewBag.status"></select>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form>
+</div>

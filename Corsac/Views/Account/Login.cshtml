@@ -1,0 +1,14 @@
+﻿@model LoginDto
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<form class="form-signin" asp-controller="Account" asp-action="Login" method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label asp-for="Email" class="sr-only">Email address</label>
+    <input type="email" asp-for="Email" class="form-control" placeholder="Email">
+    <label asp-for="Password" class="sr-only mt-2">Password</label>
+    <input type="password" asp-for="Password" placeholder="Password" class="form-control mb-2">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>    
+</form>

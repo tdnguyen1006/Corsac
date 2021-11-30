@@ -1,0 +1,27 @@
+﻿@model TicketWithStatusDto
+
+@{
+    ViewData["Title"] = "Home Page";
+    var status = Model.Statuses.Where(x => x.Status == "Waiting for Staff Response").FirstOrDefault();
+}
+
+<form class="form-signin" asp-controller="Home" asp-action="Index" method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Submit your ticket</h1>
+    <input type="hidden" asp-for="StatusId" value="@status.Id" />
+    <label asp-for="Email" class="sr-only">Email address</label>
+    <input type="email" asp-for="Email" class="form-control" placeholder="Email" required>
+
+    <label asp-for="Name" class="sr-only">Name</label>
+    <input type="text" asp-for="Name" class="form-control my-2" placeholder="Name" required>
+
+    <label asp-for="Subject" class="sr-only">Subject</label>
+    <input type="text" asp-for="Subject" class="form-control" placeholder="Subject" required>
+
+    <label asp-for="Department" class="sr-only">Department</label>
+    <input type="text" asp-for="Department" class="form-control my-2" placeholder="Department" required>
+
+    <label asp-for="Message" class="sr-only mt-2">Message</label>
+    <textarea type="text" asp-for="Message" placeholder="Message" class="form-control mb-2" rows="5" required></textarea>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>

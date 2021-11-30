@@ -1,0 +1,126 @@
+﻿@model IEnumerable<TicketWithStatusDto>
+
+@{
+    ViewData["Title"] = "Ticket";
+    var closeTicket = Model.Where(x => x.TicketStatus.Status == "Cancelled" || x.TicketStatus.Status == "Completed").ToList();
+    var unassignedTicket = Model.Where(x => x.TicketStatus.Status == "Waiting for Staff Response").ToList();
+    var openTicket = Model.Where(x => x.TicketStatus.Status == "Waiting for Customer").ToList();
+    var onHoldTicket = Model.Where(x => x.TicketStatus.Status == "On Hold").ToList();
+}
+
+<div class="container">
+    <input type="text" id="mainSearch" class="form-control" placeholder="Search UID or Subject">
+    <h3>Unassigned Tickets</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Status</th>
+                    <th>Subject</th>
+                    <th>Assigned To</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in unassignedTicket)
+                    {
+                        <tr>
+                            <td>@ticket.TicketUID</td>
+                            <td>@ticket.TicketStatus.Status</td>
+                            <td>@ticket.Subject</td>
+                            <td>
+                                <a class="nav-link text-primary" asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.TicketId">View</a>
+                                <a class="nav-link text-primary" asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.TicketId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                
+            </tbody>
+        </table>
+    </div>
+    <h3>Open Tickets</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Status</th>
+                    <th>Subject</th>
+                    <th>Assigned To</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in openTicket)
+                    {
+                        <tr>
+                            <td>@ticket.TicketUID</td>
+                            <td>@ticket.TicketStatus.Status</td>
+                            <td>@ticket.Subject</td>
+                            <td>@ticket.UserName</td>
+                            <td>
+                                <a class="nav-link text-primary" asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.TicketId">View</a>
+                                <a class="nav-link text-primary" asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.TicketId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+    <h3>On Hold Tickets</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Status</th>
+                    <th>Subject</th>
+                    <th>Assigned To</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in onHoldTicket)
+                    {
+                        <tr>
+                            <td>@ticket.TicketUID</td>
+                            <td>@ticket.TicketStatus.Status</td>
+                            <td>@ticket.Subject</td>
+                            <td>@ticket.UserName</td>
+                            <td>
+                                <a class="nav-link text-primary" asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.TicketId">View</a>
+                                <a class="nav-link text-primary" asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.TicketId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+    <h3>Close/Complete Tickets</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Status</th>
+                    <th>Subject</th>
+                    <th>Assigned To</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var ticket in closeTicket)
+                    {
+                        <tr>
+                            <td>@ticket.TicketUID</td>
+                            <td>@ticket.TicketStatus.Status</td>
+                            <td>@ticket.Subject</td>
+                            <td>@ticket.UserName</td>
+                            <td></td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>

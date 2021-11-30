@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TicketHistory>
+
+@{
+    ViewData["Title"] = "Ticket";
+}
+
+<div class="container">
+    <input type="text" id="mainSearch" class="form-control" placeholder="Search UID or Subject">
+    <h3>History</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Status</th>
+                    <th>Subject</th>
+                    <th>Assigned To</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in Model)
+                    {
+                        <tr>
+                            <td>@ticket.UID</td>
+                            <td>@ticket.TicketStatus.Status</td>
+                            <td>@ticket.Subject</td>
+                            @if (ticket.User != null)
+                            {
+                                <td>@ticket.User.UserName</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        </tr>
+                    }
+                
+            </tbody>
+        </table>
+    </div>
+</div>
